@@ -205,6 +205,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             if (isDynamic)
                 ctx.setDynamicState(BridgeContext.DYNAMIC);
             builder.setIntepolationType(intepolationType);
+            builder.setrAA(rAA);
             gvtRoot = builder.build(ctx, svgDoc);
 
             // dispatch an 'onload' event if needed
@@ -404,6 +405,16 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
 
 	public void setIntepolationType(int intepolationType) {
 		this.intepolationType = intepolationType;
+	}
+
+
+	public boolean isrAA() {
+		return rAA;
+	}
+
+
+	public void setrAA(boolean rAA) {
+		this.rAA = rAA;
 	}
 
 
@@ -1053,4 +1064,5 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
     }
     
     private int intepolationType;
+    private boolean rAA;
 }

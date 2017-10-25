@@ -151,6 +151,7 @@ public class GVTBuilder implements SVGConstants {
         if(gnBridge instanceof SVGImageElementBridge){
         	SVGImageElementBridge elementBridge = (SVGImageElementBridge) gnBridge;
         	elementBridge.setIntepolationType(intepolationType);
+        	elementBridge.setrAA(rAA);
         	gnBridge = elementBridge;
         }
         
@@ -242,6 +243,7 @@ public class GVTBuilder implements SVGConstants {
         	if(gnBridge instanceof SVGImageElementBridge){
             	SVGImageElementBridge elementBridge = (SVGImageElementBridge) gnBridge;
             	elementBridge.setIntepolationType(intepolationType);
+            	elementBridge.setrAA(rAA);
             	gnBridge = elementBridge;
             }
             // create the associated graphics node
@@ -302,5 +304,14 @@ public class GVTBuilder implements SVGConstants {
 		this.intepolationType = intepolationType;
 	}
 
+	public boolean isrAA() {
+		return rAA;
+	}
+
+	public void setrAA(boolean rAA) {
+		this.rAA = rAA;
+	}
+
 	private int intepolationType;
+	private boolean rAA;
 }

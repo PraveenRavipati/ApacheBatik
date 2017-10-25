@@ -503,7 +503,7 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
             // handles the 'preserveAspectRatio', 'overflow' and
             // 'clip' and sets the appropriate AffineTransform to
             // the image node
-            initializeViewport(ctx, e, imageNode, vb, bounds);
+            initializeViewport(ctx, e, imageNode, vb, bounds,rAA);
         }
 
     }
@@ -628,7 +628,7 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
 
         // handles the 'preserveAspectRatio', 'overflow' and 'clip' and sets the
         // appropriate AffineTransform to the image node
-        initializeViewport(ctx, e, node, vb, bounds);
+        initializeViewport(ctx, e, node, vb, bounds,rAA);
 
         return node;
     }
@@ -689,7 +689,7 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
             svgElement.getAttributeNS(null, SVG_VIEW_BOX_ATTRIBUTE);
         float[] vb = ViewBox.parseViewBoxAttribute(e, viewBox, ctx);
 
-        initializeViewport(ctx, e, result, vb, bounds);
+        initializeViewport(ctx, e, result, vb, bounds,rAA);
 
         // add a listener on the outermost svg element of the SVG image.
         // if an event occured inside the SVG image document, send it
@@ -872,7 +872,7 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
                                              Element e,
                                              GraphicsNode node,
                                              float[] vb,
-                                             Rectangle2D bounds) {
+                                             Rectangle2D bounds,boolean rAA) {
 
         float x = (float)bounds.getX();
         float y = (float)bounds.getY();
@@ -913,7 +913,7 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
                     at = at.createInverse(); // clip in user space
                     Filter filter = node.getGraphicsNodeRable(true);
                     clip = at.createTransformedShape(clip);
-                    node.setClip(new ClipRable8Bit(filter, clip));
+                    node.setClip(new ClipRable8Bit(filter, clip,rAA));
                 } catch (java.awt.geom.NoninvertibleTransformException ex) {}
             }
         } catch (LiveAttributeException ex) {
@@ -1014,6 +1014,15 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
 	}
 
 
+	public boolean isrAA() {
+		return rAA;
+	}
+
+	public void setrAA(boolean rAA) {
+		this.rAA = rAA;
+	}
+
+
 	static SVGBrokenLinkProvider brokenLinkProvider
         = new SVGBrokenLinkProvider();
     static {
@@ -1023,4 +1032,5 @@ public class SVGImageElementBridge extends AbstractGraphicsNodeBridge {
     private int intepolationType;
     private int height;
     private int width;
+    private boolean rAA;
 }

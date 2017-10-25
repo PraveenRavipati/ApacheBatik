@@ -18,11 +18,12 @@ import com.praveen.renderer.RenderingContants;
 
 public class SampleTest {
 	public static void main(String[] args) {
-		String fileNames = "/home/praveen/Desktop/imp/AntiAliasing/Test.svg";
+		String fileNames = "/home/praveen/Desktop/Rendering.svg";
 		
 		//String fileNames = "/home/praveen/Desktop/SVG_Files/Sanjith.svg";
 		//for (int i = 0; i < fileNames.length; i++) {
-			convertion(fileNames,"Image1");
+			convertion(fileNames,"/home/praveen/Desktop/Image1");
+			
 		//}
 	}
 	
@@ -33,7 +34,7 @@ public class SampleTest {
 			Transcoder transcoder = getTranscoder();
 			//transcoder.addTranscodingHint(JPEGTranscoder.KEY_HEIGHT , 1000);
 			//transcoder.addTranscodingHint(JPEGTranscoder.KEY_WIDTH , 1000);
-	        OutputStream ostream = new FileOutputStream(outputName + "_BICUBIC_LANCZOS.jpg");
+	        OutputStream ostream = new FileOutputStream(outputName + "_normal.jpg");
 	        TranscoderOutput output_document = new TranscoderOutput(ostream);
 	        transcoder.transcode(input, output_document);
 	        fileInputStream.close();
@@ -68,7 +69,7 @@ public class SampleTest {
 		};
 		if(transcoder instanceof JPEGTranscoder){
 			JPEGTranscoder jpegTranscoder = (JPEGTranscoder) transcoder;
-			jpegTranscoder.setIntepolationType(RenderingContants.LANCZOS_INTERPOLATION);
+			//jpegTranscoder.setIntepolationType(RenderingContants.LANCZOS_INTERPOLATION);
 			transcoder = jpegTranscoder;
 		}
 		transcoder.addTranscodingHint(JPEGTranscoder.KEY_QUALITY, 0.99f);
